@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/persist_ext-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/persist_ext-{{ version }}.tar.gz
   sha256: e3cc30d8142b37225c7662e8292889ebcdd7bf3be12e2c545bd9d2c956098e82
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - hatchling >=1.5.0
     - jupyterlab >=4.0.0,<5
     - hatch-nodejs-version
     - hatch-jupyter-builder
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - altair >=5
     - jupyterlab >=4
     - pandas >=0.25
@@ -42,6 +42,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/visdesignlab/persist
